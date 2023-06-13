@@ -21,9 +21,30 @@ generateEl.addEventListener('click', () => {
     const hasNumber = numbersEl.checked
     const hasSymbol = symbolsEl.checked
 
-    console.log(hasUpper, hasLower, hasNumber, hasSymbol);
+    resultEl.innerText = generatePassword(hasUpper, hasLower, hasNumber, hasSymbol, length);
+
 })
 
+function generatePassword(lower, upper, number, symbol, length) {
+    let generatedPassword = ''
+    const typesCount = lower + lower + number + symbol
+    const typesArr = [{lower}, {upper}, {number}, {symbol}].filter(item => Object.values(item)[0])
+
+    if(typesCount === 0) {
+        return ""
+    }
+
+    for(let i = 0; i < length; i+= typesCount) {
+        typesArr.forEach(type => {
+            const funcName = Object.keys(type)[0]
+            generatedPassword += randomFunc[funcName]()
+        })
+    }
+
+    const finalPassword = generatedPassword.slice(0, length)
+
+    return finalPassword
+}
 
 function getRandomLower() {
     return String.fromCharCode(Math.random() * 26) + 97; //ASCII Character set: lowercase characters range(97-122)
