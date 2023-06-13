@@ -7,6 +7,23 @@ const symbolsEl = document.getElementById('symbols')
 const generateEl = document.getElementById('generate')
 const clipboardEl = document.getElementById('clipboard')
 
+const randomFunc = {
+    lower: getRandomLower,
+    upper: getRandomUpper,
+    number: getRandomNumber,
+    symbol: getRandomSymbol
+}
+
+generateEl.addEventListener('click', () => {
+    const length = +lengthEl.value
+    const hasLower = lowercaseEl.checked
+    const hasUpper = uppercaseEl.checked
+    const hasNumber = numbersEl.checked
+    const hasSymbol = symbolsEl.checked
+
+    console.log(hasUpper, hasLower, hasNumber, hasSymbol);
+})
+
 
 function getRandomLower() {
     return String.fromCharCode(Math.random() * 26) + 97; //ASCII Character set: lowercase characters range(97-122)
